@@ -1,0 +1,30 @@
+<form #eventForm="ngForm" (ngSubmit)="onUpdate(eventForm)">
+  <div class="form-group">
+    <label class="form-control" for="eventName">Event</label>
+    <input class="form-control" name="name" id="eventName" type="text" [(ngModel)]="event['name']" required
+      pattern=".{8,}">
+    <div class="error-message" [hidden]="eventForm.controls['name']?.valid">Event name must be at least 8 characters.
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="form-control" for="eventDate">Date</label>
+    <input class="form-control" name="date" id="eventDate" type="text" [(ngModel)]="event['date']" required>
+    <div class="error-message" [hidden]="eventForm.controls['date']?.valid">Event date must be set.
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="form-control" for="eventTime">Time</label>
+    <input class="form-control" name="time" id="eventTime" type="text" [(ngModel)]="event['time']" required>
+    <div class="error-message" [hidden]="eventForm.controls['time']?.valid">Event time must be set.
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="form-control" for="eventAddress">Address</label>
+    <input class="form-control" name="address" id="eventAddress" type="text" [(ngModel)]="event['location']" required>
+    <div class="error-message" [hidden]="eventForm.controls['address']?.valid">Event location must set.
+    </div>
+  </div>
+  <button class="btn btn-success" type="submit" [disabled]="eventForm.invalid">
+    <i class="fa fa-save"></i>
+  </button>
+</form>
