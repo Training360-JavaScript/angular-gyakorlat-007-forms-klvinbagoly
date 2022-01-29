@@ -50303,8 +50303,8 @@ If '${name}' is a directive input, make sure the directive is imported by the cu
   </div>
   <div class="form-group">
     <label class="form-control" for="eventAddress">Address</label>
-    <input class="form-control" name="address" id="eventAddress" type="text" [(ngModel)]="event['location']" required>
-    <div class="error-message" [hidden]="eventForm.controls['address']?.valid">Event location must set.
+    <input class="form-control" name="location" id="eventAddress" type="text" [(ngModel)]="event['location']" required>
+    <div class="error-message" [hidden]="eventForm.controls['location']?.valid">Event location must set.
     </div>
   </div>
   <button class="btn btn-success" type="submit" [disabled]="eventForm.invalid">
@@ -50356,15 +50356,17 @@ If '${name}' is a directive input, make sure the directive is imported by the cu
 
   // src/app/page/event-editor/event-editor.component.ts
   var EventEditorComponent = class {
-    constructor(eService, route) {
-      this.eService = eService;
+    constructor(eventService, route) {
+      this.eventService = eventService;
       this.route = route;
       this.event = new Event();
       console.log(this.event);
+    }
+    ngOnInit() {
       this.route.params.subscribe({
         next: (params) => {
           console.log(params);
-          this.eService.get(params["id"]).subscribe({
+          this.eventService.get(params["id"]).subscribe({
             next: (ev) => {
               console.log(ev);
               this.event = ev || new Event();
@@ -50373,10 +50375,8 @@ If '${name}' is a directive input, make sure the directive is imported by the cu
         }
       });
     }
-    ngOnInit() {
-    }
     onUpdate(eventForm) {
-      this.eService.update(eventForm.value);
+      this.eventService.update(eventForm.value).subscribe((event) => console.log(event));
     }
   };
   EventEditorComponent = __decorateClass([
